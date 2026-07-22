@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
-      - master
-
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   trufflehog:
@@ -18,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run TruffleHog
+      - name: Scan for Secrets
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
