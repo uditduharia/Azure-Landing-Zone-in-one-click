@@ -31,7 +31,7 @@ resource "azurerm_network_interface" "nicblock" {
     name                          = each.value.ip_config_name
     subnet_id                     = data.azurerm_subnet.subnet[each.key].id
     public_ip_address_id          = data.azurerm_public_ip.public_ip[each.key].id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "static"
   }
 }
 
@@ -50,6 +50,9 @@ resource "azurerm_linux_virtual_machine" "vmblock" {
   network_interface_ids = [
     azurerm_network_interface.nicblock[each.key].id,
   ]
+
+  
+
 
 
   os_disk {
