@@ -18,6 +18,10 @@ variable "vms" {
 
 }
 
-# variable "azure_bastion" {
+variable "azure_bastion" {
 
-# }
+}
+
+variable "app_gateway" {
+  
+}

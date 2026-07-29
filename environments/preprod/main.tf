@@ -49,14 +49,27 @@ module "vm" {
 
 }
 
-# module "bastion" {
+module "bastion" {
 
-#     source = "../../modules/azurerm_bastion"
-#     bastionblock = var.azure_bastion
+    source = "../../modules/azurerm_bastion"
+    bastionblock = var.azure_bastion
 
-#      depends_on = [
-#       module.subnets,
-#       module.public_ip
-#     ]
+     depends_on = [
+      module.subnets,
+      module.public_ip
+    ]
 
-# }
+}
+
+module "appgatway" {
+
+  source =  "../../modules/azurerm_appgw"
+
+  appgwblock = var.app_gateway
+  
+
+   depends_on = [
+      module.subnets,
+      module.public_ip
+    ]
+}
