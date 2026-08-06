@@ -8,15 +8,15 @@ data "azurerm_subnet" "subnet" {
   
 }
 
-data "azurerm_public_ip" "public_ip" {
+# data "azurerm_public_ip" "public_ip" {
 
-    for_each = var.virtual_machine
+#     for_each = var.virtual_machine
 
-     name                = each.value.pip_name
-  resource_group_name = each.value.resource_group_name
+#      name                = each.value.pip_name
+#   resource_group_name = each.value.resource_group_name
   
   
-}
+# }
 
 
 resource "azurerm_network_interface" "nicblock" {
@@ -30,12 +30,13 @@ resource "azurerm_network_interface" "nicblock" {
   ip_configuration {
     name                          = each.value.ip_config_name
     subnet_id                     = data.azurerm_subnet.subnet[each.key].id
-    public_ip_address_id          = data.azurerm_public_ip.public_ip[each.key].id
-    private_ip_address_allocation = "static"
+    # public_ip_address_id          = data.azurerm_public_ip.public_ip[each.key].id
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
 resource "azurerm_linux_virtual_machine" "vmblock" {
+
 
     for_each = var.virtual_machine
   name                = each.value.vm_name
